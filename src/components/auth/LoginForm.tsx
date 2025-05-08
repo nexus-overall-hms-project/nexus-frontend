@@ -88,6 +88,7 @@ export default function LoginForm() {
         username: email.trim(),
         password: password.trim(),
         redirect: false,
+        callbackUrl: "/dashboard",
       })
 
       console.log("SignIn result:", result)
@@ -110,7 +111,7 @@ export default function LoginForm() {
           title: "Success!",
           description: "You have been successfully logged in.",
         })
-        
+        router.push(result.url || "/dashboard") // Redirect to the dashboard or the callback URL
         // The useEffect watching session changes will handle the redirect
       }
     } catch (error) {
