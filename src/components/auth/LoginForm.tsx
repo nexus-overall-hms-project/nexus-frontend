@@ -43,15 +43,9 @@ export default function LoginForm() {
     }
     
     // Only redirect if we have a valid session with a user ID
-    if (status === "authenticated" && session?.user?.id) {
-      console.log("User authenticated with ID, redirecting to dashboard...")
-      setDebugInfo(prev => `${prev}\nAuthenticated with ID! Redirecting...`)
-      
-      // Single redirect with adequate delay
-      setTimeout(() => {
+      if (status === "authenticated" && session?.user?.id) {
         router.push("/dashboard")
-      }, 1000)
-    }
+      }      
   }, [status, session, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -103,7 +97,7 @@ export default function LoginForm() {
           description: "Invalid email or password. Please try again.",
           variant: "destructive",
         })
-      } else if (result?.ok) {
+      } else if (result?.ok && result.url) {
         console.log("Login successful! Waiting for session update...")
         setDebugInfo(prev => `${prev}\nLogin successful! Waiting for session...`)
         
